@@ -43,6 +43,7 @@ export default function App () {
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck="false"
+          value={currentText}
           onChange={(event) => setCurrentText(event.target.value)}
         />
       </form>
