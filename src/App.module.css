@@ -18,9 +18,6 @@
 
 .caret {
   position: relative;
-}
-
-.caretBlink {
   animation: blink linear 0.7s infinite;
 }
 
