@@ -5,12 +5,16 @@ import styles from './styles.module.css'
 
 export default function StandardInput ({ inputRef: inputElement, handleProcessCommand }) {
   const [inputText, setInputText] = useState('')
-  const [processCurrentLine] = useState(false)
+  const [processCurrentLine, setProcessCurrentLine] = useState(false)
 
-  function handleSubmit (event) {
+  async function handleSubmit (event) {
     event.preventDefault()
+
     if (processCurrentLine && inputText === '') return
-    handleProcessCommand(inputText)
+    setProcessCurrentLine(true)
+    await handleProcessCommand(inputText)
+    setProcessCurrentLine(false)
+    setInputText('')
   }
 
   return (

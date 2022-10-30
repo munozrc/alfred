@@ -3,19 +3,39 @@ import { TerminalContext } from '../../contexts/TerminalContext'
 import CommandLine from '../CommandLine'
 import StandardInput from '../StandardInput'
 
+import commands from '../../commands'
+
 import styles from './styles.module.css'
 
 export default function Terminal () {
   const { bufferedContent, setBufferedContent } = useContext(TerminalContext)
   const inputElement = useRef(null)
 
-  function processCommand (text) {
+  async function processCommand (text) {
     console.log({ command: text })
-    setBufferedContent(() => (
+
+    const [command, commandArguments] = text.trim().split(' ')
+    let output = null
+
+    if (command === 'clear') {
+      setBufferedContent(() => null)
+      return
+    }
+
+    setBufferedContent((prev) => (
       <>
-        {bufferedContent}
-        <CommandLine text={text} hideCaret />
-        <span>Comando no encontrado {text}</span>
+        {prev}
+        <CommandLine text={command} hideCaret />
+      </>
+    ))
+
+    const executor = commands[command] || commands.notfound
+    output = await executor(commandArguments)
+
+    setBufferedContent((prev) => (
+      <>
+        {prev}
+        {output}
       </>
     ))
   }
