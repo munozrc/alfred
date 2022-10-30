@@ -16,21 +16,19 @@
 .prompt {
   display: inline;
   color: rgb(166 227 45);
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
 .text {
   position: relative;
   display: inline;
-  text-align: left;
   top: -1px;
 }
 
 .prevWhiteSpace {
-  line-height: 20px;
   color: #767676;
   font-size: 16px;
-  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .caret {
