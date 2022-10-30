@@ -1,12 +1,3 @@
-.commandLine {
-  width: 100%;
-  display: inline;
-}
-
-.commandLineHidden {
-  display: none;
-}
-
 .inputElement {
   position: absolute;
   top: -100px;
@@ -15,50 +6,4 @@
   border: transparent;
   color: transparent;
   outline: none;
-}
-
-.prompt {
-  display: inline;
-  color: rgb(166 227 45);
-  margin-right: 8px;
-}
-
-.text {
-  position: relative;
-  display: inline;
-  top: -1px;
-}
-
-.prevWhiteSpace {
-  color: #767676;
-  font-size: 16px;
-  overflow-wrap: break-word;
-}
-
-.caret {
-  position: relative;
-  animation: blink linear 0.7s infinite;
-}
-
-.caret::after {
-  content: '';
-  width: 8px;
-  height: 20px;
-  position: absolute;
-  background-color: #fff;
-  top: 1px;
-}
-
-@keyframes blink {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
 }

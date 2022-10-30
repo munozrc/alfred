@@ -1,26 +1,21 @@
 import { useState } from 'react'
+import CommandLine from '../CommandLine'
 
 import styles from './styles.module.css'
 
-export default function StandardInput ({ inputRef: inputElement }) {
+export default function StandardInput ({ inputRef: inputElement, handleProcessCommand }) {
   const [inputText, setInputText] = useState('')
   const [processCurrentLine] = useState(false)
 
   function handleSubmit (event) {
     event.preventDefault()
-    if (processCurrentLine) return
-    console.log({ inputText })
+    if (processCurrentLine && inputText === '') return
+    handleProcessCommand(inputText)
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className={processCurrentLine ? styles.commandLineHidden : styles.commandLine}>
-        <strong className={styles.prompt}>Alfred&gt;</strong>
-        <div className={styles.text}>
-          <span className={styles.prevWhiteSpace}>{inputText.replaceAll(' ', '\u00a0')}</span>
-          <span className={styles.caret}/>
-        </div>
-      </div>
+      <CommandLine hide={processCurrentLine} text={inputText.replaceAll(' ', '\u00a0')}/>
       <input
         type="text"
         ref={inputElement}

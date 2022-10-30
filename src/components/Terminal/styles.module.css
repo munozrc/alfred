@@ -4,3 +4,9 @@
   flex-direction: column;
   padding: 20px;
 }
+
+.prompt {
+  display: inline;
+  color: rgb(166 227 45);
+  margin-right: 8px;
+}
