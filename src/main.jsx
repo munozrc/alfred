@@ -1,10 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
+import TerminalProvider from './contexts/TerminalContext'
+import Terminal from './components/Terminal'
 
 import './index.css'
 
 const root = document.getElementById('root')
 const reactRoot = ReactDOM.createRoot(root)
 
-reactRoot.render(<App />)
+reactRoot.render(
+  <TerminalProvider>
+    <Terminal />
+  </TerminalProvider>
+)

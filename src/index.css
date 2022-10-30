@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: 'Cascadia Code', monospace;
   font-size: 16px;
+  color: #767676;
 }
 
 html,
@@ -11,15 +12,7 @@ body,
 #root {
   width: 100%;
   height: 100%;
-  background-color: #000000;
-  color: #767676;
-  padding: 10px;
-  font-family: monospace;
-  font-size: 16px;
-}
-
-main {
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  background-color: #000000;
+  font-size: 16px;
 }
