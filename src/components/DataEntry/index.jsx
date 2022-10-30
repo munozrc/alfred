@@ -2,14 +2,14 @@ import { useState } from 'react'
 
 import styles from './styles.module.css'
 
-function CommandLine ({ currentText = '' }) {
+function CommandLine ({ text = '' }) {
   return (
-    <div className={styles.inputWrapper}>
+    <div className={styles.commandLine}>
       <strong className={styles.prompt}>Alfred&gt;</strong>
-      <span className={styles.input}>
-        {currentText.replaceAll(' ', '\u00a0')}
-      </span>
-      <span className={styles.caret}/>
+      <div className={styles.text}>
+        <span className={styles.prevWhiteSpace}>{text}</span>
+        <span className={styles.caret}/>
+      </div>
     </div>
   )
 }
@@ -23,8 +23,8 @@ export default function DataEntry ({ inputRef: inputElement }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CommandLine currentText={inputText}/>
+    <form className={styles.wrapper} onSubmit={handleSubmit}>
+      <CommandLine text={inputText.replaceAll(' ', '\u00a0')}/>
       <input
         type="text"
         ref={inputElement}

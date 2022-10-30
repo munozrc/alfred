@@ -1,3 +1,8 @@
+.commandLine {
+  width: 100%;
+  display: inline;
+}
+
 .inputElement {
   position: absolute;
   top: -100px;
@@ -9,16 +14,23 @@
 }
 
 .prompt {
-  display: inline-block;
+  display: inline;
   color: rgb(166 227 45);
   margin-right: 10px;
 }
 
-.commandLine {
-  display: inline-flex;
-  align-items: center;
+.text {
+  position: relative;
+  display: inline;
+  text-align: left;
+  top: -1px;
+}
+
+.prevWhiteSpace {
+  line-height: 20px;
   color: #767676;
   font-size: 16px;
+  word-break: break-word;
 }
 
 .caret {
@@ -32,7 +44,7 @@
   height: 20px;
   position: absolute;
   background-color: #fff;
-  top: -1px;
+  top: 1px;
 }
 
 @keyframes blink {
