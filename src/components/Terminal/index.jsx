@@ -3,6 +3,7 @@ import { TerminalContext } from '../../contexts/TerminalContext'
 import CommandLine from '../CommandLine'
 import StandardInput from '../StandardInput'
 
+import { normalizeCommandArgs } from '../../utils'
 import commands from '../../commands'
 
 import styles from './styles.module.css'
@@ -12,9 +13,7 @@ export default function Terminal () {
   const inputElement = useRef(null)
 
   async function processCommand (text) {
-    console.log({ command: text })
-
-    const [command, commandArguments] = text.trim().split(' ')
+    const [command, ...commandArguments] = text.trim().split(' ')
     let output = null
 
     if (command === 'clear') {
@@ -25,12 +24,13 @@ export default function Terminal () {
     setBufferedContent((prev) => (
       <>
         {prev}
-        <CommandLine text={command} hideCaret />
+        <CommandLine text={text} hideCaret />
       </>
     ))
 
     const executor = commands[command] || commands.notfound
-    output = await executor(commandArguments)
+    const args = normalizeCommandArgs(commandArguments)
+    output = await executor(args)
 
     setBufferedContent((prev) => (
       <>
