@@ -1,0 +1,50 @@
+.inputElement {
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  background: transparent;
+  border: transparent;
+  color: transparent;
+  outline: none;
+}
+
+.prompt {
+  display: inline-block;
+  color: rgb(166 227 45);
+  margin-right: 10px;
+}
+
+.commandLine {
+  display: inline-flex;
+  align-items: center;
+  color: #767676;
+  font-size: 16px;
+}
+
+.caret {
+  position: relative;
+  animation: blink linear 0.7s infinite;
+}
+
+.caret::after {
+  content: '';
+  width: 8px;
+  height: 20px;
+  position: absolute;
+  background-color: #fff;
+  top: -1px;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
