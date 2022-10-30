@@ -11,6 +11,8 @@ export default async function whoami () {
       <p><strong>Ciudad: </strong>{data.city}</p>
       <p><strong>Código Postal: </strong>{data.postal_code}</p>
       <p><strong>Organización: </strong>{data.organization}</p>
+      <p><strong>Longitud: </strong>{data.longitude}</p>
+      <p><strong>Latitud: </strong>{data.latitude}</p>
     </div>
   )
 }
