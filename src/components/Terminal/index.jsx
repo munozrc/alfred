@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import DataEntry from '../DataEntry'
+import StandardInput from '../StandardInput'
 
 import styles from './styles.module.css'
 
@@ -10,7 +10,7 @@ export default function Terminal () {
       className={styles.wrapper}
       onClick={() => inputElement.current.focus()}
     >
-      <DataEntry inputRef={inputElement}/>
+      <StandardInput inputRef={inputElement}/>
     </main>
   )
 }

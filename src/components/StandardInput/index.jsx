@@ -2,29 +2,25 @@ import { useState } from 'react'
 
 import styles from './styles.module.css'
 
-function CommandLine ({ text = '' }) {
-  return (
-    <div className={styles.commandLine}>
-      <strong className={styles.prompt}>Alfred&gt;</strong>
-      <div className={styles.text}>
-        <span className={styles.prevWhiteSpace}>{text}</span>
-        <span className={styles.caret}/>
-      </div>
-    </div>
-  )
-}
-
-export default function DataEntry ({ inputRef: inputElement }) {
+export default function StandardInput ({ inputRef: inputElement }) {
   const [inputText, setInputText] = useState('')
+  const [processCurrentLine] = useState(false)
 
   function handleSubmit (event) {
     event.preventDefault()
+    if (processCurrentLine) return
     console.log({ inputText })
   }
 
   return (
-    <form className={styles.wrapper} onSubmit={handleSubmit}>
-      <CommandLine text={inputText.replaceAll(' ', '\u00a0')}/>
+    <form onSubmit={handleSubmit}>
+      <div className={processCurrentLine ? styles.commandLineHidden : styles.commandLine}>
+        <strong className={styles.prompt}>Alfred&gt;</strong>
+        <div className={styles.text}>
+          <span className={styles.prevWhiteSpace}>{inputText.replaceAll(' ', '\u00a0')}</span>
+          <span className={styles.caret}/>
+        </div>
+      </div>
       <input
         type="text"
         ref={inputElement}

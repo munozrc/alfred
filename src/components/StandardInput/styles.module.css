@@ -3,6 +3,10 @@
   display: inline;
 }
 
+.commandLineHidden {
+  display: none;
+}
+
 .inputElement {
   position: absolute;
   top: -100px;
