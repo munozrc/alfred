@@ -1,3 +1,5 @@
+import { getMatrizOfLettersWithKey } from '../utils'
+
 function simpleTranspositionCipher (letters = []) {
   let even = ''
   let odd = ''
@@ -49,7 +51,7 @@ function getRule (matrix = [], pairLetter = '') {
     for (let column = 0; column < 5; column++) {
       const letter = matrix[row * 5 + column]
 
-      if (letter === 'I/J') {
+      if (letter === '(I/J)') {
         if (m1 === 'I' || m1 === 'J') {
           posM1.row = row
           posM1.column = column
@@ -88,23 +90,19 @@ function getRule (matrix = [], pairLetter = '') {
 function playFairCipher (letters = [], keyArg = '') {
   if (keyArg === '') return (<div><strong>La palabra clave</strong></div>)
 
-  const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I/J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-  const key = keyArg.toUpperCase().split('')
-  const normalizeKey = key.map(char => char === 'I' || char === 'J' ? 'I/J' : char)
-  const matrix = Array.from(new Set([...normalizeKey, ...alphabet]))
-
-  const chucksLetters = []
+  const matrizOfLetters = getMatrizOfLettersWithKey(keyArg)
+  const pairOfLetters = []
 
   for (let pos = 0; pos < letters.length; pos += 2) {
     const currentLetter = letters[pos].toUpperCase()
     const nextLetter = letters[pos + 1] ?? 'X'
-    chucksLetters.push(currentLetter + nextLetter.toUpperCase())
+    pairOfLetters.push(currentLetter + nextLetter.toUpperCase())
   }
 
   const result = []
 
-  for (let i = 0; i < chucksLetters.length; i++) {
-    const letter = getRule(Array.from(matrix), chucksLetters[i])
+  for (let i = 0; i < pairOfLetters.length; i++) {
+    const letter = getRule(Array.from(matrizOfLetters), pairOfLetters[i])
     result.push(letter)
   }
 
@@ -112,8 +110,8 @@ function playFairCipher (letters = [], keyArg = '') {
     <div>
       <strong>Cifrado usando PlayFair</strong>
       <p><strong>Clave: </strong>{keyArg}</p>
-      <p><strong>Matriz con clave: </strong>{matrix.join(', ')}</p>
-      <p><strong>Letras: </strong>{chucksLetters.join(', ')}</p>
+      <p><strong>Matriz con clave: </strong>{matrizOfLetters.join(', ')}</p>
+      <p><strong>Letras: </strong>{pairOfLetters.join(', ')}</p>
       <p><strong>Resultado: </strong>{result.join(', ')}</p>
     </div>
   )
@@ -121,8 +119,6 @@ function playFairCipher (letters = [], keyArg = '') {
 
 export default function crypto (allArgs = []) {
   const arrayLetters = allArgs[1]?.replaceAll(' ', '').split('')
-
-  console.log({ allArgs })
 
   if (allArgs.includes('-dts')) return simpleTranspositionDecipher(arrayLetters)
   if (allArgs.includes('-ts')) return simpleTranspositionCipher(arrayLetters)
