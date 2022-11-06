@@ -1,4 +1,4 @@
-import { getMatrizOfLettersWithKey } from '../utils'
+import { getFixedPosOfLetter, getMatrizOfLettersWithKey, getPairOfLetters } from '../utils'
 
 function simpleTranspositionCipher (letters = []) {
   let even = ''
@@ -91,19 +91,55 @@ function playFairCipher (letters = [], keyArg = '') {
   if (keyArg === '') return (<div><strong>La palabra clave</strong></div>)
 
   const matrizOfLetters = getMatrizOfLettersWithKey(keyArg)
-  const pairOfLetters = []
-
-  for (let pos = 0; pos < letters.length; pos += 2) {
-    const currentLetter = letters[pos].toUpperCase()
-    const nextLetter = letters[pos + 1] ?? 'X'
-    pairOfLetters.push(currentLetter + nextLetter.toUpperCase())
-  }
+  const pairOfLetters = getPairOfLetters(letters)
 
   const result = []
 
   for (let i = 0; i < pairOfLetters.length; i++) {
-    const letter = getRule(Array.from(matrizOfLetters), pairOfLetters[i])
-    result.push(letter)
+    const firstLetter = pairOfLetters[i].charAt(0)
+    const secondLetter = pairOfLetters[i].charAt(1)
+
+    let posFirstLetter = {}
+    let posSecondLetter = {}
+    let posFirstEncryptedLetter = {}
+    let posSecondEncryptedLetter = {}
+
+    for (let row = 0; row < 5; row++) {
+      for (let column = 0; column < 5; column++) {
+        const letter = matrizOfLetters[row * 5 + column]
+        const isCompoundLetter = letter === '(I/J)'
+
+        if (isCompoundLetter && (firstLetter === 'I' || firstLetter === 'J')) {
+          posFirstLetter = { row, column }
+          continue
+        }
+
+        if (isCompoundLetter && (secondLetter === 'I' || secondLetter === 'J')) {
+          posSecondLetter = { row, column }
+          continue
+        }
+
+        if (letter === firstLetter) posFirstLetter = { row, column }
+        if (letter === secondLetter) posSecondLetter = { row, column }
+      }
+    }
+
+    if (posFirstLetter.row === posSecondLetter.row) {
+      posFirstEncryptedLetter = { row: posFirstLetter.row, column: getFixedPosOfLetter(posFirstLetter.column) }
+      posSecondEncryptedLetter = { row: posFirstLetter.row, column: getFixedPosOfLetter(posSecondLetter.column) }
+    } else if (posFirstLetter.column === posSecondLetter.column) {
+      posFirstEncryptedLetter = { row: getFixedPosOfLetter(posFirstLetter.row), column: posFirstLetter.column }
+      posSecondEncryptedLetter = { row: getFixedPosOfLetter(posSecondLetter.row), column: posSecondLetter.column }
+    } else {
+      const calcOppositePos = posSecondLetter.column - posFirstLetter.column
+      posFirstEncryptedLetter = { row: posFirstLetter.row, column: posFirstLetter.column + calcOppositePos }
+      posSecondEncryptedLetter = { row: posSecondLetter.row, column: posSecondLetter.column - calcOppositePos }
+    }
+
+    const firstEncryptedLetter = matrizOfLetters[posFirstEncryptedLetter.row * 5 + posFirstEncryptedLetter.column]
+    const secondEncryptedLetter = matrizOfLetters[posSecondEncryptedLetter.row * 5 + posSecondEncryptedLetter.column]
+
+    result.push(firstEncryptedLetter + secondEncryptedLetter)
   }
 
   return (
@@ -112,9 +148,18 @@ function playFairCipher (letters = [], keyArg = '') {
       <p><strong>Clave: </strong>{keyArg}</p>
       <p><strong>Matriz con clave: </strong>{matrizOfLetters.join(', ')}</p>
       <p><strong>Letras: </strong>{pairOfLetters.join(', ')}</p>
-      <p><strong>Resultado: </strong>{result.join(', ')}</p>
+      <p><strong>Resultado: </strong>{result.join('')}</p>
     </div>
   )
+}
+
+function playFairDecipher (letters = [], keyArg = '') { // crypto -dpf HBTIDBHKMO key=DIAMOND
+  if (keyArg === '') return (<div><strong>La palabra clave</strong></div>)
+
+  const matrizOfLetters = getMatrizOfLettersWithKey(keyArg)
+  const pairOfLetters = getPairOfLetters(letters)
+
+  console.log({ pairOfLetters })
 }
 
 export default function crypto (allArgs = []) {
@@ -123,6 +168,7 @@ export default function crypto (allArgs = []) {
   if (allArgs.includes('-dts')) return simpleTranspositionDecipher(arrayLetters)
   if (allArgs.includes('-ts')) return simpleTranspositionCipher(arrayLetters)
   if (allArgs.includes('-pf')) return playFairCipher(arrayLetters, allArgs[2].replace('key=', ''))
+  if (allArgs.includes('-dpf')) return playFairDecipher(arrayLetters, allArgs[2].replace('key=', ''))
 
   return (
     <div>

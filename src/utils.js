@@ -21,3 +21,19 @@ export function getMatrizOfLettersWithKey (keyArg = '') {
   const array = Array.from(new Set([...normalizeKey, ...alphabet]))
   return array
 }
+
+export function getPairOfLetters (letters = '') {
+  const array = []
+  for (let pos = 0; pos < letters.length; pos += 2) {
+    const currentLetter = letters[pos].toUpperCase()
+    const nextLetter = letters[pos + 1] ?? 'X'
+    array.push(currentLetter + nextLetter.toUpperCase())
+  }
+  return array
+}
+
+export function getFixedPosOfLetter (position) {
+  const maxPosOfMatrix = 4
+  const nextPos = position + 1
+  return nextPos > maxPosOfMatrix ? 0 : nextPos
+}
