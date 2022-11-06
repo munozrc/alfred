@@ -7,9 +7,9 @@ export function normalizeCommandArgs (args) {
 
   if (containsQuotes) {
     const removePattern = textWithQuotes.charAt(0) !== '"' ? `"${textWithQuotes}"` : `'${textWithQuotes}'`
-    const removeTextWithQuote = argsAsText.replaceAll(removePattern, '')
-    const arrayArgs = removeTextWithQuote.split(' ').filter(arg => arg !== '')
-    return [...arrayArgs, textWithQuotes]
+    const normalizeTextWithQuotes = textWithQuotes.replaceAll(' ', '')
+    const removeTextWithQuote = argsAsText.replaceAll(removePattern, normalizeTextWithQuotes)
+    return removeTextWithQuote.split(' ').filter(arg => arg !== '')
   }
 
   return args
