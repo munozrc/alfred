@@ -102,7 +102,7 @@ function playFairDecipher (letters = [], keyArg = '') {
   )
 }
 
-function caesarCipher (lettersArg = [], keyArg = undefined) {
+function caesarCipher (lettersArg = '', keyArg = undefined) {
   if (typeof keyArg === 'undefined') return (<div><strong>Falta la clave de desplazamiento</strong></div>)
 
   const alphabetUsed = 0
@@ -127,7 +127,7 @@ function caesarCipher (lettersArg = [], keyArg = undefined) {
   )
 }
 
-function caesarDecipher (lettersArg = [], keyArg = undefined) {
+function caesarDecipher (lettersArg = '', keyArg = undefined) {
   if (typeof keyArg === 'undefined') return (<div><strong>Falta la clave de desplazamiento</strong></div>)
 
   const letters = lettersArg.split('')
@@ -152,6 +152,68 @@ function caesarDecipher (lettersArg = [], keyArg = undefined) {
   )
 }
 
+function vigenereCipher (lettersArg = '', keyArg = '') {
+  if (keyArg === '') return (<div><strong>Falta parametro clave Ej: key=MUNDO</strong></div>)
+
+  const letters = lettersArg.toUpperCase().split('')
+  const key = keyArg.toUpperCase()
+  const alphabetUsed = 0
+  const alphabet = alphabets[alphabetUsed][0]
+
+  const maxPosKey = key.length
+  let iteratorKey = 0
+
+  const result = letters.map((letter) => {
+    if (letter.trim() === '') return letter
+    const letterKey = key.charAt(iteratorKey >= maxPosKey ? iteratorKey - maxPosKey : iteratorKey)
+    const posLetterText = alphabet.indexOf(letter)
+    const posLetterKey = alphabet.indexOf(letterKey)
+    iteratorKey++
+    return alphabet.charAt((posLetterText + posLetterKey) % alphabet.length)
+  })
+
+  return (
+    <div>
+      <strong>Cifrado usando Vigenère</strong>
+      <p><strong>Clave: </strong>{keyArg}</p>
+      <p><strong>Diccionario: </strong>{alphabets[alphabetUsed][1]}</p>
+      <p><strong>Letras: </strong>{letters.join('')}</p>
+      <p><strong>Resultado: </strong>{result.join('').replaceAll(' ', '\u00a0')}</p>
+    </div>
+  )
+}
+
+function vigenereDecipher (lettersArg = '', keyArg = '') {
+  if (keyArg === '') return (<div><strong>Falta parametro clave Ej: key=MUNDO</strong></div>)
+
+  const letters = lettersArg.toUpperCase().split('')
+  const key = keyArg.toUpperCase()
+  const alphabetUsed = 0
+  const alphabet = alphabets[alphabetUsed][0]
+
+  const maxPosKey = key.length
+  let iteratorKey = 0
+
+  const result = letters.map((letter) => {
+    if (letter.trim() === '') return letter
+    const letterKey = key.charAt(iteratorKey >= maxPosKey ? iteratorKey - maxPosKey : iteratorKey)
+    const posLetterText = alphabet.indexOf(letter)
+    const posLetterKey = alphabet.indexOf(letterKey)
+    iteratorKey++
+    return alphabet.charAt((posLetterText - posLetterKey + alphabet.length) % alphabet.length)
+  })
+
+  return (
+    <div>
+      <strong>Decifrado usando Vigenère</strong>
+      <p><strong>Clave: </strong>{keyArg}</p>
+      <p><strong>Diccionario: </strong>{alphabets[alphabetUsed][1]}</p>
+      <p><strong>Letras: </strong>{letters.join('')}</p>
+      <p><strong>Resultado: </strong>{result.join('').replaceAll(' ', '\u00a0')}</p>
+    </div>
+  )
+}
+
 export default function crypto (allArgs = []) {
   const arrayLetters = allArgs[1]?.replaceAll(' ', '').split('')
 
@@ -161,6 +223,8 @@ export default function crypto (allArgs = []) {
   if (allArgs.includes('-dpf')) return playFairDecipher(arrayLetters, allArgs[2].replace('key=', ''))
   if (allArgs.includes('-cc')) return caesarCipher(allArgs[1], parseInt(allArgs[2].replace('key=', '')))
   if (allArgs.includes('-dcc')) return caesarDecipher(allArgs[1], parseInt(allArgs[2].replace('key=', '')))
+  if (allArgs.includes('-vg')) return vigenereCipher(allArgs[1], allArgs[2].replace('key=', ''))
+  if (allArgs.includes('-dvg')) return vigenereDecipher(allArgs[1], allArgs[2].replace('key=', ''))
 
   return (
     <div>
