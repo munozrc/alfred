@@ -1,11 +1,11 @@
 export const alphabets = [
   [
     'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ',
-    'Alfabeto ES-ñ'
+    'es_COL'
   ],
   [
     'ABCDEFGHIKLMNOPQRSTUVWXYZ',
-    'Alfabeto US'
+    'en_US'
   ]
 ]
 
