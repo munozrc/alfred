@@ -143,8 +143,8 @@ function caesarDecipher (lettersArg = [], keyArg = undefined) {
 export default function crypto (allArgs = []) {
   const arrayLetters = allArgs[1]?.replaceAll(' ', '').split('')
 
-  if (allArgs.includes('-dts')) return simpleTranspositionDecipher(arrayLetters)
   if (allArgs.includes('-ts')) return simpleTranspositionCipher(arrayLetters)
+  if (allArgs.includes('-dts')) return simpleTranspositionDecipher(arrayLetters)
   if (allArgs.includes('-pf')) return playFairCipher(arrayLetters, allArgs[2].replace('key=', ''))
   if (allArgs.includes('-dpf')) return playFairDecipher(arrayLetters, allArgs[2].replace('key=', ''))
   if (allArgs.includes('-cc')) return caesarCipher(allArgs[1], parseInt(allArgs[2].replace('key=', '')))
@@ -152,10 +152,14 @@ export default function crypto (allArgs = []) {
 
   return (
     <div>
-      <strong>{'Uso: crypto [OPERACION] [VALOR]'}</strong>
+      <strong>{'Uso: crypto [OPERACION] [VALOR] key=[VALOR]'}</strong>
       <p><strong>{'OPERACIONES DISPONIBLES'}</strong></p>
       <p><strong>{'-ts  '}</strong>Cifrado por transpolación simple</p>
-      <p><strong>{'-dts '}</strong>Descifrado usando transpolación simple</p>
+      <p><strong>{'-dts '}</strong>Decifrado usando transpolación simple</p>
+      <p><strong>{'-pf '}</strong>Cifrado usando PlayFair</p>
+      <p><strong>{'-dpf '}</strong>Decifrado usando PlayFair</p>
+      <p><strong>{'-cc '}</strong>Cifrado usando metodo de desplazamiento ó Julio Cesar</p>
+      <p><strong>{'-dcc '}</strong>Decifrado usando metodo de desplazamiento ó Julio Cesar</p>
     </div>
   )
 }
