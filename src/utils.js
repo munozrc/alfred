@@ -1,5 +1,12 @@
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', '(I/J)', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
+export const alphabets = [
+  [
+    'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ',
+    'Alfabeto español (contiene ñ)'
+  ]
+]
+
 export function normalizeCommandArgs (args) {
   const argsAsText = args.join(' ')
   const textWithQuotes = argsAsText.split('"')[1] || argsAsText.split("'")[1]

@@ -1,4 +1,4 @@
-import { getMatrizOfLettersWithKey, getPairOfLetters, getTextPlayFair } from '../utils'
+import { alphabets, getMatrizOfLettersWithKey, getPairOfLetters, getTextPlayFair } from '../utils'
 
 function simpleTranspositionCipher (letters = []) {
   let even = ''
@@ -65,7 +65,7 @@ function playFairCipher (letters = [], keyArg = '') {
   )
 }
 
-function playFairDecipher (letters = [], keyArg = '') { // crypto -dpf HBTIDBHKMO key=DIAMOND
+function playFairDecipher (letters = [], keyArg = '') {
   if (keyArg === '') return (<div><strong>La palabra clave</strong></div>)
 
   const matrizOfLetters = getMatrizOfLettersWithKey(keyArg)
@@ -90,6 +90,29 @@ function playFairDecipher (letters = [], keyArg = '') { // crypto -dpf HBTIDBHKM
   )
 }
 
+function caesarCipher (letters = [], keyArg = undefined) {
+  if (typeof keyArg === 'undefined') return (<div><strong>Falta la clave de desplazamiento</strong></div>)
+
+  const alphabetUsed = 0
+  const alphabet = alphabets[alphabetUsed][0]
+
+  const result = letters.map((letter) => {
+    const nextPosition = alphabet.indexOf(letter.toUpperCase()) + keyArg
+    const posIsValid = nextPosition < alphabet.length
+    return alphabet.charAt(posIsValid ? nextPosition : nextPosition - alphabet.length)
+  })
+
+  return (
+    <div>
+      <strong>Decifrado usando Julio Cesar</strong>
+      <p><strong>Clave de Desplazamiento: </strong>{keyArg}</p>
+      <p><strong>Diccionario: </strong>{alphabets[alphabetUsed][1]}</p>
+      <p><strong>Letras: </strong>{letters.join(', ')}</p>
+      <p><strong>Resultado: </strong>{result.join('')}</p>
+    </div>
+  )
+}
+
 export default function crypto (allArgs = []) {
   const arrayLetters = allArgs[1]?.replaceAll(' ', '').split('')
 
@@ -97,6 +120,7 @@ export default function crypto (allArgs = []) {
   if (allArgs.includes('-ts')) return simpleTranspositionCipher(arrayLetters)
   if (allArgs.includes('-pf')) return playFairCipher(arrayLetters, allArgs[2].replace('key=', ''))
   if (allArgs.includes('-dpf')) return playFairDecipher(arrayLetters, allArgs[2].replace('key=', ''))
+  if (allArgs.includes('-c')) return caesarCipher(arrayLetters, parseInt(allArgs[2].replace('key=', '')))
 
   return (
     <div>
