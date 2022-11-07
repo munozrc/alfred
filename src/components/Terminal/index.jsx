@@ -9,7 +9,7 @@ import commands from '../../commands'
 import styles from './styles.module.css'
 
 export default function Terminal () {
-  const { bufferedContent, setBufferedContent } = useContext(TerminalContext)
+  const { bufferedContent, setBufferedContent, appendCommandToHistory } = useContext(TerminalContext)
   const inputElement = useRef(null)
 
   async function processCommand (text) {
@@ -21,6 +21,7 @@ export default function Terminal () {
       return
     }
 
+    appendCommandToHistory(text)
     setBufferedContent((prev) => (
       <>
         {prev}
