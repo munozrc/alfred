@@ -104,6 +104,29 @@ function caesarCipher (letters = [], keyArg = undefined) {
 
   return (
     <div>
+      <strong>Cifrado usando Julio Cesar</strong>
+      <p><strong>Clave de Desplazamiento: </strong>{keyArg}</p>
+      <p><strong>Diccionario: </strong>{alphabets[alphabetUsed][1]}</p>
+      <p><strong>Letras: </strong>{letters.join(', ')}</p>
+      <p><strong>Resultado: </strong>{result.join('')}</p>
+    </div>
+  )
+}
+
+function caesarDecipher (letters = [], keyArg = undefined) {
+  if (typeof keyArg === 'undefined') return (<div><strong>Falta la clave de desplazamiento</strong></div>)
+
+  const alphabetUsed = 0
+  const alphabet = alphabets[alphabetUsed][0]
+
+  const result = letters.map((letter) => {
+    const nextPosition = alphabet.indexOf(letter.toUpperCase()) - keyArg
+    const posIsValid = nextPosition >= 0
+    return alphabet.charAt(posIsValid ? nextPosition : nextPosition + alphabet.length)
+  })
+
+  return (
+    <div>
       <strong>Decifrado usando Julio Cesar</strong>
       <p><strong>Clave de Desplazamiento: </strong>{keyArg}</p>
       <p><strong>Diccionario: </strong>{alphabets[alphabetUsed][1]}</p>
@@ -120,7 +143,8 @@ export default function crypto (allArgs = []) {
   if (allArgs.includes('-ts')) return simpleTranspositionCipher(arrayLetters)
   if (allArgs.includes('-pf')) return playFairCipher(arrayLetters, allArgs[2].replace('key=', ''))
   if (allArgs.includes('-dpf')) return playFairDecipher(arrayLetters, allArgs[2].replace('key=', ''))
-  if (allArgs.includes('-c')) return caesarCipher(arrayLetters, parseInt(allArgs[2].replace('key=', '')))
+  if (allArgs.includes('-jc')) return caesarCipher(arrayLetters, parseInt(allArgs[2].replace('key=', '')))
+  if (allArgs.includes('-djc')) return caesarDecipher(arrayLetters, parseInt(allArgs[2].replace('key=', '')))
 
   return (
     <div>
