@@ -58,7 +58,13 @@ function playFairCipher (letters = [], keyArg = '') {
     <div>
       <strong>Cifrado usando PlayFair</strong>
       <p><strong>Clave: </strong>{keyArg}</p>
-      <p><strong>Matriz con clave: </strong>{matrizOfLetters.join(', ')}</p>
+      <p><strong>---------------------</strong></p>
+      <p>| {matrizOfLetters.join(' | ').substring(0, 17).replace('(I/J)', 'I')} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(19, 38).replace('(I/J)', 'I')} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(40, 62).replace('(I/J)', 'I')} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(64, 82).replace('(I/J)', 'I')} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(84, 102).replace('(I/J)', 'I')} |</p>
+      <p><strong>---------------------</strong></p>
       <p><strong>Letras: </strong>{pairOfLetters.join(', ')}</p>
       <p><strong>Resultado: </strong>{result.join('')}</p>
     </div>
@@ -83,7 +89,13 @@ function playFairDecipher (letters = [], keyArg = '') {
     <div>
       <strong>Decifrado usando PlayFair</strong>
       <p><strong>Clave: </strong>{keyArg}</p>
-      <p><strong>Matriz con clave: </strong>{matrizOfLetters.join(', ')}</p>
+      <p><strong>---------------------</strong></p>
+      <p>| {matrizOfLetters.join(' | ').substring(0, 17).replace('(I/J)', 'I')} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(19, 38).replace('(I/J)', 'I')} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(40, 62).replace('(I/J)', 'I')} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(64, 82).replace('(I/J)', 'I')} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(84, 102).replace('(I/J)', 'I')} |</p>
+      <p><strong>---------------------</strong></p>
       <p><strong>Letras: </strong>{pairOfLetters.join(', ')}</p>
       <p><strong>Resultado: </strong>{result.join('')}</p>
     </div>
