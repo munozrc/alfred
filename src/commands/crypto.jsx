@@ -143,8 +143,8 @@ export default function crypto (allArgs = []) {
   if (allArgs.includes('-ts')) return simpleTranspositionCipher(arrayLetters)
   if (allArgs.includes('-pf')) return playFairCipher(arrayLetters, allArgs[2].replace('key=', ''))
   if (allArgs.includes('-dpf')) return playFairDecipher(arrayLetters, allArgs[2].replace('key=', ''))
-  if (allArgs.includes('-jc')) return caesarCipher(arrayLetters, parseInt(allArgs[2].replace('key=', '')))
-  if (allArgs.includes('-djc')) return caesarDecipher(arrayLetters, parseInt(allArgs[2].replace('key=', '')))
+  if (allArgs.includes('-cc')) return caesarCipher(arrayLetters, parseInt(allArgs[2].replace('key=', '')))
+  if (allArgs.includes('-dcc')) return caesarDecipher(arrayLetters, parseInt(allArgs[2].replace('key=', '')))
 
   return (
     <div>
