@@ -14,9 +14,11 @@ export function normalizeCommandArgs (args) {
 
   if (containsQuotes) {
     const removePattern = textWithQuotes.charAt(0) !== '"' ? `"${textWithQuotes}"` : `'${textWithQuotes}'`
-    const normalizeTextWithQuotes = textWithQuotes.replaceAll(' ', '')
-    const removeTextWithQuote = argsAsText.replaceAll(removePattern, normalizeTextWithQuotes)
-    return removeTextWithQuote.split(' ').filter(arg => arg !== '')
+    const textWithoutQuotes = textWithQuotes.replaceAll(' ', '')
+    return argsAsText
+      .replaceAll(removePattern, textWithoutQuotes)
+      .split(' ')
+      .map(arg => arg === textWithoutQuotes ? textWithQuotes : arg)
   }
 
   return args

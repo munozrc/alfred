@@ -90,13 +90,15 @@ function playFairDecipher (letters = [], keyArg = '') {
   )
 }
 
-function caesarCipher (letters = [], keyArg = undefined) {
+function caesarCipher (lettersArg = [], keyArg = undefined) {
   if (typeof keyArg === 'undefined') return (<div><strong>Falta la clave de desplazamiento</strong></div>)
 
   const alphabetUsed = 0
+  const letters = lettersArg.split('')
   const alphabet = alphabets[alphabetUsed][0]
 
   const result = letters.map((letter) => {
+    if (letter.trim() === '') return letter
     const nextPosition = alphabet.indexOf(letter.toUpperCase()) + keyArg
     const posIsValid = nextPosition < alphabet.length
     return alphabet.charAt(posIsValid ? nextPosition : nextPosition - alphabet.length)
@@ -107,19 +109,21 @@ function caesarCipher (letters = [], keyArg = undefined) {
       <strong>Cifrado usando Julio Cesar</strong>
       <p><strong>Clave de Desplazamiento: </strong>{keyArg}</p>
       <p><strong>Diccionario: </strong>{alphabets[alphabetUsed][1]}</p>
-      <p><strong>Letras: </strong>{letters.join(', ')}</p>
-      <p><strong>Resultado: </strong>{result.join('')}</p>
+      <p><strong>Letras: </strong>{letters.join('')}</p>
+      <p><strong>Resultado: </strong>{result.join('').replaceAll(' ', '\u00a0')}</p>
     </div>
   )
 }
 
-function caesarDecipher (letters = [], keyArg = undefined) {
+function caesarDecipher (lettersArg = [], keyArg = undefined) {
   if (typeof keyArg === 'undefined') return (<div><strong>Falta la clave de desplazamiento</strong></div>)
 
+  const letters = lettersArg.split('')
   const alphabetUsed = 0
   const alphabet = alphabets[alphabetUsed][0]
 
   const result = letters.map((letter) => {
+    if (letter.trim() === '') return letter
     const nextPosition = alphabet.indexOf(letter.toUpperCase()) - keyArg
     const posIsValid = nextPosition >= 0
     return alphabet.charAt(posIsValid ? nextPosition : nextPosition + alphabet.length)
@@ -130,8 +134,8 @@ function caesarDecipher (letters = [], keyArg = undefined) {
       <strong>Decifrado usando Julio Cesar</strong>
       <p><strong>Clave de Desplazamiento: </strong>{keyArg}</p>
       <p><strong>Diccionario: </strong>{alphabets[alphabetUsed][1]}</p>
-      <p><strong>Letras: </strong>{letters.join(', ')}</p>
-      <p><strong>Resultado: </strong>{result.join('')}</p>
+      <p><strong>Letras: </strong>{letters.join('')}</p>
+      <p><strong>Resultado: </strong>{result.join('').replaceAll(' ', '\u00a0')}</p>
     </div>
   )
 }
@@ -143,8 +147,8 @@ export default function crypto (allArgs = []) {
   if (allArgs.includes('-ts')) return simpleTranspositionCipher(arrayLetters)
   if (allArgs.includes('-pf')) return playFairCipher(arrayLetters, allArgs[2].replace('key=', ''))
   if (allArgs.includes('-dpf')) return playFairDecipher(arrayLetters, allArgs[2].replace('key=', ''))
-  if (allArgs.includes('-cc')) return caesarCipher(arrayLetters, parseInt(allArgs[2].replace('key=', '')))
-  if (allArgs.includes('-dcc')) return caesarDecipher(arrayLetters, parseInt(allArgs[2].replace('key=', '')))
+  if (allArgs.includes('-cc')) return caesarCipher(allArgs[1], parseInt(allArgs[2].replace('key=', '')))
+  if (allArgs.includes('-dcc')) return caesarDecipher(allArgs[1], parseInt(allArgs[2].replace('key=', '')))
 
   return (
     <div>
