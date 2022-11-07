@@ -1,9 +1,11 @@
-const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', '(I/J)', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
 export const alphabets = [
   [
     'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ',
-    'Alfabeto español (contiene ñ)'
+    'Alfabeto ES-ñ'
+  ],
+  [
+    'ABCDEFGHIKLMNOPQRSTUVWXYZ',
+    'Alfabeto US'
   ]
 ]
 
@@ -26,8 +28,8 @@ export function normalizeCommandArgs (args) {
 
 export function getMatrizOfLettersWithKey (keyArg = '') {
   const key = keyArg.toUpperCase().split('')
-  const normalizeKey = key.map(letter => letter === 'I' || letter === 'J' ? '(I/J)' : letter)
-  const array = Array.from(new Set([...normalizeKey, ...alphabet]))
+  const alphabet = alphabets[1][0].split('')
+  const array = Array.from(new Set([...key, ...alphabet]))
   return array
 }
 
@@ -56,7 +58,7 @@ export function getTextPlayFair (pairOfLetters = [], matrizOfLetters = [], getPo
     for (let row = 0; row < 5; row++) {
       for (let column = 0; column < 5; column++) {
         const letter = matrizOfLetters[row * 5 + column]
-        const isCompoundLetter = letter === '(I/J)'
+        const isCompoundLetter = letter === 'I'
 
         if (isCompoundLetter && (firstLetter === 'I' || firstLetter === 'J')) {
           posFirstLetter = { row, column }

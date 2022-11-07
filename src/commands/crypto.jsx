@@ -59,11 +59,11 @@ function playFairCipher (letters = [], keyArg = '') {
       <strong>Cifrado usando PlayFair</strong>
       <p><strong>Clave: </strong>{keyArg}</p>
       <p><strong>---------------------</strong></p>
-      <p>| {matrizOfLetters.join(' | ').substring(0, 17).replace('(I/J)', 'I')} |</p>
-      <p>| {matrizOfLetters.join(' | ').substring(19, 38).replace('(I/J)', 'I')} |</p>
-      <p>| {matrizOfLetters.join(' | ').substring(40, 62).replace('(I/J)', 'I')} |</p>
-      <p>| {matrizOfLetters.join(' | ').substring(64, 82).replace('(I/J)', 'I')} |</p>
-      <p>| {matrizOfLetters.join(' | ').substring(84, 102).replace('(I/J)', 'I')} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(0, 17)} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(19, 38)} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(40, 57)} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(59, 78)} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(80, 97)} |</p>
       <p><strong>---------------------</strong></p>
       <p><strong>Letras: </strong>{pairOfLetters.join(', ')}</p>
       <p><strong>Resultado: </strong>{result.join('')}</p>
@@ -90,11 +90,11 @@ function playFairDecipher (letters = [], keyArg = '') {
       <strong>Decifrado usando PlayFair</strong>
       <p><strong>Clave: </strong>{keyArg}</p>
       <p><strong>---------------------</strong></p>
-      <p>| {matrizOfLetters.join(' | ').substring(0, 17).replace('(I/J)', 'I')} |</p>
-      <p>| {matrizOfLetters.join(' | ').substring(19, 38).replace('(I/J)', 'I')} |</p>
-      <p>| {matrizOfLetters.join(' | ').substring(40, 62).replace('(I/J)', 'I')} |</p>
-      <p>| {matrizOfLetters.join(' | ').substring(64, 82).replace('(I/J)', 'I')} |</p>
-      <p>| {matrizOfLetters.join(' | ').substring(84, 102).replace('(I/J)', 'I')} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(0, 17)} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(19, 38)} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(40, 57)} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(59, 78)} |</p>
+      <p>| {matrizOfLetters.join(' | ').substring(80, 97)} |</p>
       <p><strong>---------------------</strong></p>
       <p><strong>Letras: </strong>{pairOfLetters.join(', ')}</p>
       <p><strong>Resultado: </strong>{result.join('')}</p>
